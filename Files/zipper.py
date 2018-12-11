@@ -1,5 +1,13 @@
 #!/usr/bin/env python
 
+###############################################################################
+#                                                                             #
+#                                                                             #
+#                                                                             #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
 
 import colorama as color
 import os
@@ -35,7 +43,8 @@ def fileCallback(directory, file):
             os.remove(zipname)
 
             print()
-        exception Exception as ex:
+
+        except Exception as ex:
             print(color.Fore.YELLOW + ' error: '
                     + color.Fore.RED + color.Style.BRIGHT + str(ex) + color.Style.NORMAL)
 

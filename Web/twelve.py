@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3.7
 
 ##################################################################################
 #                                                                                #
@@ -35,6 +35,7 @@
 ##################################################################################
 
 
+import httplib2
 
 
 gifts = [ 
@@ -53,17 +54,26 @@ gifts = [
 ]
 
 
+def doGet(url, useragent):
+    headers = {'User-Agent': useragent}
+    _, content = httplib2.Http().request(url, 'GET', headers=headers)
+    return content
+
+def writeLine(line):
+    doGet('http://localhost:2108', line)
+    print(line)
+
+
 for verseindex in range(0, len(gifts)):
     number, gift = gifts[verseindex]
-    line = 'on the ' + number + ' day of christmas, my true love gave to me ' + gift
-    print(line)
+    writeLine('on the ' + number + ' day of christmas, my true love gave to me ' + gift)
 
     if verseindex > 0:
         for previndex in range(verseindex - 1, -1, -1):
             if previndex == 0:
-                print('and ', end='')
+                prevline = 'and '
+            else:
+                prevline = ''
             _, prevgift = gifts[previndex]
-            print(prevgift)
-    
-    print(' ')
-
+            prevline += prevgift
+            writeLine(prevline)
